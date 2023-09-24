@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <style>
+    #map {
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([0, 0], 2);
+
+    // Add a tile layer (you can use different map providers)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Sample data with addresses and coordinates
+    var profiles = [
+      { name: 'Profile 1', address: 'New York, USA', coordinates: [40.7128, -74.0060] },
+      { name: 'Profile 2', address: 'San Francisco, USA', coordinates: [37.7749, -122.4194] },
+      // Add more profiles here
+    ];
+
+    // Function to create markers and popups
+    function createMarkers() {
+      profiles.forEach(function(profile) {
+        var marker = L.marker(profile.coordinates).addTo(map);
+        marker.bindPopup(`<b>${profile.name}</b><br>${profile.address}`).openPopup();
+      });
+    }
+
+    // Initial marker creation
+    createMarkers();
+  </script>
+</body>
+</html>
